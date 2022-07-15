@@ -302,14 +302,14 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
         if not len(result_rows):
             raise Exception(f'No item with slug {slug}')
         title = result_rows[0]['title']
-
+        image = item_row["image"] or "/placeholder.png"
         return Item(
             id_=item_row["id"],
             slug=slug,
             title=title,
             description=item_row["description"],
             body=item_row["body"],
-            image=item_row["image"],
+            image=image,
             seller=await self._profiles_repo.get_profile_by_username(
                 username=seller_username,
                 requested_user=requested_user,
